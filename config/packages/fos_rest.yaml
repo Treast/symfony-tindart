@@ -2,6 +2,16 @@
 fos_rest:
   routing_loader:
     default_format: json
+  param_fetcher_listener:  true
+  body_converter:
+    enabled: true
+    validate: true
+    validation_errors_argument: validationErrors
+  serializer:
+    serialize_null:  true
+  format_listener:
+    rules:
+    - { path: ^/, prefer_extension: true, priorities: [ json ], fallback_format: json }
 #    param_fetcher_listener:  true
 #    allowed_methods_listener:  true
 #    routing_loader: true
