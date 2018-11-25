@@ -3,14 +3,15 @@
 namespace App\Controller;
 
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\RestBundle\FOSRestBundle;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
-class UserController extends ApiController {
+class AuthenticationController extends ApiController {
 
+    /** @var EntityManager  */
     private $entityManager;
+    /** @var UserRepository  */
     private $userRepository;
 
     public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository)
@@ -18,5 +19,15 @@ class UserController extends ApiController {
         parent::__construct();
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
+    }
+
+    public function postLoginAction(Request $request) {
+        $user = $this->userRepository->findByCredentials($request->get('email'), $request->get('password'));
+
+        if($user) {
+            return $this->renderJson($user);
+        }
+
+        return $this->renderJson(['success' => false]);
     }
 }

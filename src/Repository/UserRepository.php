@@ -19,6 +19,25 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    public function findByCredentials($email, $password) {
+        $user = $this->findOneBy(['email' => $email]);
+
+        // Si l'email renseigné existe
+        if($user) {
+            // Si les mots de passe correspondent
+            if(password_verify($password, $user->getPassword())) {
+                // On génère un nouveau token si la connexion réussie
+                $token = sha1(uniqid('', true) . time());
+                $user->setToken($token);
+                $this->getEntityManager()->persist($user);
+                $this->getEntityManager()->flush();
+
+                return $user;
+            }
+        }
+        return false;
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
