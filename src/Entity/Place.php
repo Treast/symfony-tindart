@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @JMS\ExclusionPolicy("all")
  * @ORM\Entity(repositoryClass="App\Repository\PlaceRepository")
  */
 class Place
@@ -19,25 +18,25 @@ class Place
     private $uuid;
 
     /**
-     * @JMS\Groups(groups={"default"})
+     * @JMS\Groups({"default"})
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
-     * @JMS\Groups(groups={"default"})
+     * @JMS\Groups({"default"})
      * @ORM\Column(type="string", length=255)
      */
     private $address;
 
     /**
-     * @JMS\Groups(groups={"default"})
+     * @JMS\Groups({"default"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $latitude;
 
     /**
-     * @JMS\Groups(groups={"default"})
+     * @JMS\Groups({"default"})
      * @ORM\Column(type="float", nullable=true)
      */
     private $longitude;

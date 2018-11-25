@@ -6,6 +6,7 @@ use App\Repository\PlaceRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\FOSRestBundle;
+use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,6 @@ class PlaceController extends FOSRestBundle {
     public function getPlacesAction() {
         $places = $this->placeRepository->findAll();
 
-        return new Response($this->serializer->serialize($places, 'json'));
+        return new Response($this->serializer->serialize($places, 'json', SerializationContext::create()->setGroups(['default'])));
     }
 }
