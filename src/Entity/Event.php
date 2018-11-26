@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
@@ -11,35 +12,40 @@ class Event
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(type="string")
+     * @JMS\Groups({"default"})
      */
-    private $id;
+    private $uuid;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @JMS\Groups({"default"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="datetime")
+     * @JMS\Groups({"default"})
      */
     private $event_date;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @JMS\Groups({"default"})
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="events")
      * @ORM\JoinColumn(name="place_uuid", referencedColumnName="uuid", nullable=false)
+     * @JMS\Groups({"default"})
      */
     private $place;
 
-    public function getId(): ?int
+    public function getUuid(): ?string
     {
-        return $this->id;
+        return $this->uuid;
     }
 
     public function getName(): ?string

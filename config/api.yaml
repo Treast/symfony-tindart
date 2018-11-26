@@ -6,6 +6,11 @@ users:
   type: rest
   resource: App\Controller\UserController
 
+events:
+  type: rest
+  parent: places
+  resource: App\Controller\EventController
+
 login:
   methods: [POST]
   path: /login
