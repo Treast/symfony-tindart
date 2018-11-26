@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PlaceRepository")
@@ -14,16 +15,19 @@ class Place
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="string")
+     * @JMS\Groups({"default"})
      */
     private $uuid;
 
     /**
+     * @Assert\NotBlank()
      * @JMS\Groups({"default"})
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank()
      * @JMS\Groups({"default"})
      * @ORM\Column(type="string", length=255)
      */

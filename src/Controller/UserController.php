@@ -7,7 +7,6 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends ApiController {
@@ -23,6 +22,7 @@ class UserController extends ApiController {
      * UserController constructor.
      * @param EntityManagerInterface $entityManager
      * @param UserRepository $userRepository
+     * @param ValidatorInterface $validator
      */
     public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository, ValidatorInterface $validator)
     {
@@ -56,7 +56,6 @@ class UserController extends ApiController {
      */
     public function postUsersAction(User $bodyUser) {
         $errors = $this->validator->validate($bodyUser);
-
         if($errors->count() === 0) {
             $user = new User();
             $user->setEmail($bodyUser->getEmail());
@@ -81,7 +80,7 @@ class UserController extends ApiController {
         $user = $this->getUser();
 
         $user->setEmail($bodyUser->getEmail());
-        $user->setPassword(password_hash($bodyUser->getPassword(), PASSWORD_BCRYPT));
+        $user->setPassword($bodyUser->getPassword());
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
