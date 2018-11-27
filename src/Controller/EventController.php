@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\Place;
 use App\Repository\EventRepository;
-use App\Repository\PlaceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
