@@ -4,10 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Place;
 use App\Repository\PlaceRepository;
-use Doctrine\ORM\EntityManager;
+use App\Service\OpenStreetMapGeocoder;
+use App\Utils\GeocodingInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use JMS\Serializer\SerializationContext;
-use JMS\Serializer\SerializerBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -20,12 +19,15 @@ class PlaceController extends ApiController {
     private $placeRepository;
     /** @var ValidatorInterface  */
     private $validator;
+    /** @var GeocodingInterface  */
+    private $geocoder;
 
     public function __construct(EntityManagerInterface $entityManager, PlaceRepository $placeRepository, ValidatorInterface $validator) {
         parent::__construct();
         $this->entityManager = $entityManager;
         $this->placeRepository = $placeRepository;
         $this->validator = $validator;
+        $this->geocoder = new OpenStreetMapGeocoder();
     }
 
     public function getPlacesAction() {
@@ -53,8 +55,13 @@ class PlaceController extends ApiController {
             $place = new Place();
             $place->setName($bodyPlace->getName());
             $place->setAddress($bodyPlace->getAddress());
-            $place->setLatitude($bodyPlace->getLatitude());
-            $place->setLongitude($bodyPlace->getLongitude());
+
+            $coordinates = $this->geocoder->geocode($place->getAddress());
+
+            if(!is_null($coordinates)) {
+                $place->setLongitude($coordinates->getLongitude());
+                $place->setLatitude($coordinates->getLatitude());
+            }
 
             $this->entityManager->persist($place);
             $this->entityManager->flush();
