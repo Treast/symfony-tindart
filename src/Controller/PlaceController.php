@@ -4,9 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Place;
 use App\Repository\PlaceRepository;
-use App\Service\OpenStreetMapGeocoder;
 use App\Utils\GeocodingInterface;
+use Swagger\Annotations as SWG;
 use Doctrine\ORM\EntityManagerInterface;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -30,6 +31,19 @@ class PlaceController extends ApiController {
         $this->geocoder = $geocoder;
     }
 
+    /**
+     * @return Response
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns all places",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items()
+     *     )
+     * )
+     * @SWG\Tag(name="Places")
+     * @Security(name="Token")
+     */
     public function getPlacesAction() {
         $places = $this->placeRepository->findAll();
 
@@ -39,6 +53,12 @@ class PlaceController extends ApiController {
     /**
      * @param Place $place
      * @return Response
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns a place",
+     * )
+     * @SWG\Tag(name="Places")
+     * @Security(name="Token")
      */
     public function getPlaceAction(Place $place) {
         return $this->renderJson($place);
@@ -48,6 +68,12 @@ class PlaceController extends ApiController {
      * @ParamConverter("bodyPlace", converter="fos_rest.request_body")
      * @param Place $bodyPlace
      * @return \Symfony\Component\HttpFoundation\Response
+     * @SWG\Response(
+     *     response=200,
+     *     description="Create a place",
+     * )
+     * @SWG\Tag(name="Places")
+     * @Security(name="Token")
      */
     public function postPlacesAction(Place $bodyPlace) {
         $errors = $this->validator->validate($bodyPlace);
@@ -76,6 +102,12 @@ class PlaceController extends ApiController {
      * @param Place $place
      * @param Place $bodyPlace
      * @return \Symfony\Component\HttpFoundation\Response
+     * @SWG\Response(
+     *     response=200,
+     *     description="Update a place",
+     * )
+     * @SWG\Tag(name="Places")
+     * @Security(name="Token")
      */
     public function putPlacesAction(Place $place, Place $bodyPlace) {
         $place->setName($bodyPlace->getName());
@@ -92,6 +124,12 @@ class PlaceController extends ApiController {
     /**
      * @param Place $place
      * @return \Symfony\Component\HttpFoundation\Response
+     * @SWG\Response(
+     *     response=200,
+     *     description="Delete a place",
+     * )
+     * @SWG\Tag(name="Places")
+     * @Security(name="Token")
      */
     public function deletePlacesAction(Place $place) {
         $this->entityManager->remove($place);

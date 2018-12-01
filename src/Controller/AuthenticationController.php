@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Swagger\Annotations as SWG;
 
 class AuthenticationController extends ApiController {
 
@@ -21,6 +22,15 @@ class AuthenticationController extends ApiController {
         $this->userRepository = $userRepository;
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @SWG\Response(
+     *     response=200,
+     *     description="Authenticate an user",
+     * )
+     * @SWG\Tag(name="Authentication")
+     */
     public function postLoginAction(Request $request) {
         $user = $this->userRepository->findByCredentials($request->get('email'), $request->get('password'));
 
