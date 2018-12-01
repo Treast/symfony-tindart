@@ -20,6 +20,13 @@ class OpenStreetMapGeocoder implements GeocodingInterface {
     /** @var StatefulGeocoder */
     private $geocoder;
 
+    public function __construct()
+    {
+        $this->httpClient = new Client();
+        $this->provider = new Nominatim($this->httpClient, 'https://nominatim.openstreetmap.org', 'fr');
+        $this->geocoder = new StatefulGeocoder($this->provider, 'fr');
+    }
+
     /**
      * Transform an address to a longitude and a latitude.
      * @param string $address
@@ -28,9 +35,6 @@ class OpenStreetMapGeocoder implements GeocodingInterface {
     public function geocode(string $address)
     {
         try {
-            $this->httpClient = new Client();
-            $this->provider = new Nominatim($this->httpClient, 'https://nominatim.openstreetmap.org', 'fr');
-            $this->geocoder = new StatefulGeocoder($this->provider, 'fr');
             $query = GeocodeQuery::create($address);
             $result = $this->geocoder->geocodeQuery($query);
             return $result->first()->getCoordinates();

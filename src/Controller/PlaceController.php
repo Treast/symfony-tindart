@@ -22,12 +22,12 @@ class PlaceController extends ApiController {
     /** @var GeocodingInterface  */
     private $geocoder;
 
-    public function __construct(EntityManagerInterface $entityManager, PlaceRepository $placeRepository, ValidatorInterface $validator) {
+    public function __construct(EntityManagerInterface $entityManager, PlaceRepository $placeRepository, ValidatorInterface $validator, GeocodingInterface $geocoder) {
         parent::__construct();
         $this->entityManager = $entityManager;
         $this->placeRepository = $placeRepository;
         $this->validator = $validator;
-        $this->geocoder = new OpenStreetMapGeocoder();
+        $this->geocoder = $geocoder;
     }
 
     public function getPlacesAction() {
