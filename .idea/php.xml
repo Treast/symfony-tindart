@@ -135,6 +135,8 @@
       <path value="$PROJECT_DIR$/vendor/geocoder-php/nominatim-provider" />
       <path value="$PROJECT_DIR$/vendor/geocoder-php/google-maps-provider" />
       <path value="$PROJECT_DIR$/vendor/symfony/apache-pack" />
+      <path value="$PROJECT_DIR$/vendor/symfony/contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-exporter" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
