@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\Place;
 use App\Repository\EventRepository;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -36,7 +37,7 @@ class EventController extends ApiController {
      *     description="Returns all events in a place",
      *     @SWG\Schema(
      *         type="array",
-     *         @SWG\Items()
+     *         @SWG\Items(ref=@Model(type=Event::class, groups={"default"}))
      *     )
      * )
      * @SWG\Tag(name="Events")
@@ -53,6 +54,9 @@ class EventController extends ApiController {
      * @SWG\Response(
      *     response=200,
      *     description="Returns an event in a place",
+     *     @SWG\Schema(
+     *         ref=@Model(type=Event::class, groups={"default"})
+     *     )
      * )
      * @SWG\Tag(name="Events")
      * @Security(name="Token")
@@ -69,6 +73,30 @@ class EventController extends ApiController {
      * @SWG\Response(
      *     response=200,
      *     description="Create an event in a place",
+     *     @SWG\Schema(
+     *         ref=@Model(type=Event::class, groups={"default"})
+     *     )
+     * )
+     * @SWG\Parameter(
+     *     name="name",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="Event name"
+     * )
+     * @SWG\Parameter(
+     *     name="description",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="Event description"
+     * )
+     * @SWG\Parameter(
+     *     name="event_date",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="Event date"
      * )
      * @SWG\Tag(name="Events")
      * @Security(name="Token")
@@ -92,45 +120,76 @@ class EventController extends ApiController {
     }
 
     /**
-     * @ParamConverter("bodyPlace", converter="fos_rest.request_body")
+     * @ParamConverter("bodyEvent", converter="fos_rest.request_body")
      * @param Place $place
-     * @param Place $bodyPlace
+     * @param Event $bodyEvent
+     * @param Event $event
      * @return \Symfony\Component\HttpFoundation\Response
      * @SWG\Response(
      *     response=200,
      *     description="Update a event in a place",
+     *     @SWG\Schema(
+     *         ref=@Model(type=Event::class, groups={"default"})
+     *     )
+     * )
+     * @SWG\Parameter(
+     *     name="name",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="Event name"
+     * )
+     * @SWG\Parameter(
+     *     name="description",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="Event description"
+     * )
+     * @SWG\Parameter(
+     *     name="event_date",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="Event date"
      * )
      * @SWG\Tag(name="Events")
      * @Security(name="Token")
      */
-    public function putPlacesAction(Place $place, Place $bodyPlace) {
-        $place->setName($bodyPlace->getName());
-        $place->setAddress($bodyPlace->getAddress());
-        $place->setLatitude($bodyPlace->getLatitude());
-        $place->setLongitude($bodyPlace->getLongitude());
+    public function putEventAction(Place $place, Event $bodyEvent, Event $event) {
+        $errors = $this->validator->validate($bodyEvent);
+        if($errors->count() === 0) {
+            $event->setPlace($place);
+            $event->setName($bodyEvent->getName());
+            $event->setDescription($bodyEvent->getDescription());
+            $event->setEventDate($bodyEvent->getEventDate());
 
-        $this->entityManager->persist($place);
-        $this->entityManager->flush();
+            $this->entityManager->persist($place);
+            $this->entityManager->flush();
 
-        return $this->renderJson($place);
+            return $this->renderJson($place);
+        }
+
+        return $this->renderJson((string)$errors);
     }
 
     /**
      * @param Place $place
+     * @param Event $event
      * @return \Symfony\Component\HttpFoundation\Response
      * @SWG\Response(
      *     response=200,
      *     description="Delete an event in a place",
      *     @SWG\Schema(
-     *         type="array",
-     *         @SWG\Items()
+     *         type="object",
+     *         @SWG\Property(property="success", type="boolean"),
      *     )
      * )
      * @SWG\Tag(name="Events")
      * @Security(name="Token")
      */
-    public function deletePlacesAction(Place $place) {
-        $this->entityManager->remove($place);
+    public function deleteEventsAction(Place $place, Event $event) {
+        $this->entityManager->remove($event);
         $this->entityManager->flush();
 
         return $this->renderJson(['success' => true]);

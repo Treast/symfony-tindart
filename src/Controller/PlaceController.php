@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Place;
 use App\Repository\PlaceRepository;
 use App\Utils\GeocodingInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -38,7 +39,7 @@ class PlaceController extends ApiController {
      *     description="Returns all places",
      *     @SWG\Schema(
      *         type="array",
-     *         @SWG\Items()
+     *         @SWG\Items(ref=@Model(type=Place::class, groups={"default"}))
      *     )
      * )
      * @SWG\Tag(name="Places")
@@ -56,6 +57,9 @@ class PlaceController extends ApiController {
      * @SWG\Response(
      *     response=200,
      *     description="Returns a place",
+     *     @SWG\Schema(
+     *         ref=@Model(type=Place::class, groups={"default"})
+     *     )
      * )
      * @SWG\Tag(name="Places")
      * @Security(name="Token")
@@ -71,6 +75,23 @@ class PlaceController extends ApiController {
      * @SWG\Response(
      *     response=200,
      *     description="Create a place",
+     *     @SWG\Schema(
+     *         ref=@Model(type=Place::class, groups={"default"})
+     *     )
+     * )
+     * @SWG\Parameter(
+     *     name="name",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="Place name"
+     * )
+     * @SWG\Parameter(
+     *     name="address",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="Place address"
      * )
      * @SWG\Tag(name="Places")
      * @Security(name="Token")
@@ -105,6 +126,23 @@ class PlaceController extends ApiController {
      * @SWG\Response(
      *     response=200,
      *     description="Update a place",
+     *     @SWG\Schema(
+     *         ref=@Model(type=Place::class, groups={"default"})
+     *     )
+     * )
+     * @SWG\Parameter(
+     *     name="name",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="Place name"
+     * )
+     * @SWG\Parameter(
+     *     name="address",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="Place address"
      * )
      * @SWG\Tag(name="Places")
      * @Security(name="Token")
@@ -112,8 +150,13 @@ class PlaceController extends ApiController {
     public function putPlacesAction(Place $place, Place $bodyPlace) {
         $place->setName($bodyPlace->getName());
         $place->setAddress($bodyPlace->getAddress());
-        $place->setLatitude($bodyPlace->getLatitude());
-        $place->setLongitude($bodyPlace->getLongitude());
+
+        $coordinates = $this->geocoder->geocode($place->getAddress());
+
+        if(!is_null($coordinates)) {
+            $place->setLongitude($coordinates->getLongitude());
+            $place->setLatitude($coordinates->getLatitude());
+        }
 
         $this->entityManager->persist($place);
         $this->entityManager->flush();
@@ -127,6 +170,10 @@ class PlaceController extends ApiController {
      * @SWG\Response(
      *     response=200,
      *     description="Delete a place",
+     *     @SWG\Schema(
+     *         type="object",
+     *         @SWG\Property(property="success", type="boolean")
+     *     )
      * )
      * @SWG\Tag(name="Places")
      * @Security(name="Token")
