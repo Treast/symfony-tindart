@@ -33,12 +33,14 @@ class AuthenticationController extends ApiController {
      *     name="email",
      *     in="query",
      *     type="string",
+     *     required=true,
      *     description="User email"
      * )
      * @SWG\Parameter(
      *     name="password",
      *     in="query",
      *     type="string",
+     *     required=true,
      *     description="User plain password (not hashed)"
      * )
      * @SWG\Tag(name="Authentication")
