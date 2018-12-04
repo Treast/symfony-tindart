@@ -186,6 +186,42 @@ class PlaceController extends ApiController {
         return $this->renderJson(['success' => true]);
     }
 
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns all places around a certain distance from the user",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items(ref=@Model(type=Place::class, groups={"default"}))
+     *     )
+     * )
+     * @SWG\Parameter(
+     *     name="longitude",
+     *     in="query",
+     *     type="number",
+     *     required=true,
+     *     description="User longitude"
+     * )
+     * @SWG\Parameter(
+     *     name="latitude",
+     *     in="query",
+     *     type="number",
+     *     required=true,
+     *     description="User latitude"
+     * )
+     * @SWG\Parameter(
+     *     name="distance",
+     *     in="query",
+     *     type="number",
+     *     required=true,
+     *     description="Max distance"
+     * )
+     * @SWG\Tag(name="Places")
+     * @Security(name="Token")
+     */
     public function postPlacesSearchAction(Request $request) {
         $longitudeUser = $request->request->get('longitude');
         $latitudeUser = $request->request->get('latitude');

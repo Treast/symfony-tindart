@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2355ef47-5fa7-48b7-a14e-8f35f3165340" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PlaceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PlaceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Event.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/OpenStreetMapGeocoder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/OpenStreetMapGeocoder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/GeocodingInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/GeocodingInterface.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,14 +60,14 @@
         <counts>
           <entry key="env" value="22" />
           <entry key="json" value="82" />
-          <entry key="php" value="7223" />
+          <entry key="php" value="7347" />
           <entry key="yaml" value="771" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="82" />
-          <entry key="PHP" value="7223" />
+          <entry key="PHP" value="7347" />
           <entry key="PLAIN_TEXT" value="22" />
           <entry key="YAML" value="771" />
         </counts>
@@ -107,8 +103,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Controller/PlaceController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="794">
-              <caret line="205" column="40" selection-start-line="205" selection-start-column="40" selection-end-line="205" selection-end-column="40" />
+            <state relative-caret-position="377">
+              <caret line="217" column="23" selection-start-line="217" selection-start-column="23" selection-end-line="217" selection-end-column="23" />
+              <caret line="210" column="23" selection-start-line="210" selection-start-column="23" selection-end-line="210" selection-end-column="23" />
+              <caret line="203" column="23" selection-start-line="203" selection-start-column="23" selection-end-line="203" selection-end-column="23" />
               <folding>
                 <element signature="e#34#55#0#PHP" expanded="true" />
               </folding>
@@ -503,12 +501,12 @@
       <workItem from="1543421044361" duration="5703000" />
       <workItem from="1543598901077" duration="170000" />
       <workItem from="1543672540434" duration="3754000" />
-      <workItem from="1543899610233" duration="6885000" />
+      <workItem from="1543899610233" duration="7182000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34345000" />
+    <option name="totallyTimeSpent" value="34642000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -796,8 +794,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/PlaceController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="794">
-          <caret line="205" column="40" selection-start-line="205" selection-start-column="40" selection-end-line="205" selection-end-column="40" />
+        <state relative-caret-position="377">
+          <caret line="217" column="23" selection-start-line="217" selection-start-column="23" selection-end-line="217" selection-end-column="23" />
+          <caret line="210" column="23" selection-start-line="210" selection-start-column="23" selection-end-line="210" selection-end-column="23" />
+          <caret line="203" column="23" selection-start-line="203" selection-start-column="23" selection-end-line="203" selection-end-column="23" />
           <folding>
             <element signature="e#34#55#0#PHP" expanded="true" />
           </folding>
