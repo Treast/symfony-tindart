@@ -48,6 +48,7 @@ class Place
     private $longitude;
 
     /**
+     * @JMS\MaxDepth(1)
      * @JMS\Groups({"default"})
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="place", orphanRemoval=true)
      */

@@ -42,6 +42,7 @@ class Event
     private $description;
 
     /**
+     * @JMS\MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="events")
      * @ORM\JoinColumn(name="place_uuid", referencedColumnName="uuid", nullable=false)
      * @JMS\Groups({"default"})
@@ -49,6 +50,7 @@ class Event
     private $place;
 
     /**
+     * @JMS\MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="events")
      * @ORM\JoinTable(name="users_events", joinColumns={@ORM\JoinColumn(name="event_uuid", referencedColumnName="uuid")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="user_uuid", referencedColumnName="uuid")})

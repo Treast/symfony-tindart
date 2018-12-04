@@ -18,7 +18,7 @@ class ApiController extends FOSRestController {
 
     public function __construct() {
         $this->serializer = SerializerBuilder::create()->build();
-        $this->serializerContext = SerializationContext::create()->setGroups(['default']);
+        $this->serializerContext = SerializationContext::create()->enableMaxDepthChecks()->setGroups(['default']);
     }
 
     public function renderJson($data, $httpCode = Response::HTTP_OK) {
