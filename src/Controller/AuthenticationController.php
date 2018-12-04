@@ -29,6 +29,18 @@ class AuthenticationController extends ApiController {
      *     response=200,
      *     description="Authenticate an user",
      * )
+     * @SWG\Parameter(
+     *     name="email",
+     *     in="query",
+     *     type="string",
+     *     description="User email"
+     * )
+     * @SWG\Parameter(
+     *     name="password",
+     *     in="query",
+     *     type="string",
+     *     description="User plain password (not hashed)"
+     * )
      * @SWG\Tag(name="Authentication")
      */
     public function postLoginAction(Request $request) {

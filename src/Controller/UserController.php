@@ -75,6 +75,27 @@ class UserController extends ApiController {
      *     response=200,
      *     description="Create an user",
      * )
+     * @SWG\Parameter(
+     *     name="email",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="User email"
+     * )
+     * @SWG\Parameter(
+     *     name="password",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="User plain password (not hashed)"
+     * )
+     * @SWG\Parameter(
+     *     name="roles",
+     *     in="query",
+     *     type="array",
+     *     @SWG\Items(type="string"),
+     *     description="User roles"
+     * )
      * @SWG\Tag(name="Users")
      * @Security(name="Token")
      */
@@ -103,22 +124,45 @@ class UserController extends ApiController {
      *     response=200,
      *     description="Update an user",
      * )
+     * @SWG\Parameter(
+     *     name="email",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="User email"
+     * )
+     * @SWG\Parameter(
+     *     name="password",
+     *     in="query",
+     *     type="string",
+     *     required=true,
+     *     description="User plain password (not hashed)"
+     * )
+     * @SWG\Parameter(
+     *     name="roles",
+     *     in="query",
+     *     type="array",
+     *     @SWG\Items(type="string"),
+     *     description="User roles"
+     * )
      * @SWG\Tag(name="Users")
      * @Security(name="Token")
      */
-    public function putUsersAction(User $bodyUser) {
-        $user = $this->getUser();
+    public function putUsersAction(User $user, User $bodyUser) {
+        if($this->getUser()->getUuid() === $user->getUuid()) {
+            $user->setEmail($bodyUser->getEmail());
+            $user->setPassword($bodyUser->getPassword());
 
-        $user->setEmail($bodyUser->getEmail());
-        $user->setPassword($bodyUser->getPassword());
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
 
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
-
-        return $this->renderJson($user);
+            return $this->renderJson($user);
+        }
+        return $this->renderJson(['success' => false]);
     }
 
     /**
+     * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
      * @SWG\Response(
      *     response=200,
@@ -127,10 +171,13 @@ class UserController extends ApiController {
      * @SWG\Tag(name="Users")
      * @Security(name="Token")
      */
-    public function deleteUsersAction() {
-        $this->entityManager->remove($this->getUser());
-        $this->entityManager->flush();
+    public function deleteUsersAction(User $user) {
+        if($this->getUser()->getUuid() === $user->getUuid()) {
+            $this->entityManager->remove($this->getUser());
+            $this->entityManager->flush();
 
-        return $this->renderJson(['success' => true]);
+            return $this->renderJson(['success' => true]);
+        }
+        return $this->renderJson(['success' => false]);
     }
 }
