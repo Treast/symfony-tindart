@@ -10,6 +10,7 @@ use Swagger\Annotations as SWG;
 use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -183,5 +184,25 @@ class PlaceController extends ApiController {
         $this->entityManager->flush();
 
         return $this->renderJson(['success' => true]);
+    }
+
+    public function postPlacesSearchAction(Request $request) {
+        $longitudeUser = $request->request->get('longitude');
+        $latitudeUser = $request->request->get('latitude');
+        $places = [];
+
+        $fullPlaces = $this->placeRepository->findAll();
+        $distance = $request->request->get('distance');
+
+        foreach($fullPlaces as $place) {
+            if($place->getLongitude() && $place->getLatitude()) {
+                $d = $this->geocoder->distance($place->getLatitude(), $place->getLongitude(), $latitudeUser, $longitudeUser);
+                if($d <= $distance) {
+                    $places[] = $place;
+                }
+            }
+        }
+
+        return $this->renderJson($places);
     }
 }

@@ -47,4 +47,18 @@ class OpenStreetMapGeocoder implements GeocodingInterface {
     {
         throw new NotImplementedException('Not implemented yet.');
     }
+
+    public function distance(float $latitude1, float $longitude1, float $latitude2, float $longitude2)
+    {
+        $earth_radius = 6378137;
+        $rlo1 = deg2rad($longitude1);
+        $rla1 = deg2rad($latitude1);
+        $rlo2 = deg2rad($longitude2);
+        $rla2 = deg2rad($latitude2);
+        $dlo = ($rlo2 - $rlo1) / 2;
+        $dla = ($rla2 - $rla1) / 2;
+        $a = (sin($dla) * sin($dla)) + cos($rla1) * cos($rla2) * (sin($dlo) * sin($dlo));
+        $d = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        return ($earth_radius * $d) / 1000;
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
@@ -19,12 +20,14 @@ class Event
     private $uuid;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      * @JMS\Groups({"default"})
      */
     private $name;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="datetime")
      * @JMS\Groups({"default"})
      */
