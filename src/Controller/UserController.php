@@ -111,7 +111,7 @@ class UserController extends ApiController {
             return $this->renderJson($user);
         }
 
-        return $this->renderJson((string)$errors);
+        return $this->renderErrors($errors);
     }
 
     /**

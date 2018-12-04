@@ -116,7 +116,7 @@ class PlaceController extends ApiController {
             return $this->renderJson($place);
         }
 
-        return $this->renderJson((string)$errors);
+        return $this->renderErrors($errors);
     }
 
     /**
@@ -149,20 +149,25 @@ class PlaceController extends ApiController {
      * @Security(name="Token")
      */
     public function putPlacesAction(Place $place, Place $bodyPlace) {
-        $place->setName($bodyPlace->getName());
-        $place->setAddress($bodyPlace->getAddress());
+        $errors = $this->validator->validate($bodyPlace);
+        if($errors->count() === 0) {
+            $place->setName($bodyPlace->getName());
+            $place->setAddress($bodyPlace->getAddress());
 
-        $coordinates = $this->geocoder->geocode($place->getAddress());
+            $coordinates = $this->geocoder->geocode($place->getAddress());
 
-        if(!is_null($coordinates)) {
-            $place->setLongitude($coordinates->getLongitude());
-            $place->setLatitude($coordinates->getLatitude());
+            if(!is_null($coordinates)) {
+                $place->setLongitude($coordinates->getLongitude());
+                $place->setLatitude($coordinates->getLatitude());
+            }
+
+            $this->entityManager->persist($place);
+            $this->entityManager->flush();
+
+            return $this->renderJson($place);
         }
 
-        $this->entityManager->persist($place);
-        $this->entityManager->flush();
-
-        return $this->renderJson($place);
+        return $this->renderErrors($errors);
     }
 
     /**

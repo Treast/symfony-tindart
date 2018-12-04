@@ -116,7 +116,7 @@ class EventController extends ApiController {
             return $this->renderJson($event);
         }
 
-        return $this->renderJson((string)$errors);
+        return $this->renderErrors($errors);
     }
 
     /**
@@ -170,7 +170,7 @@ class EventController extends ApiController {
             return $this->renderJson($place);
         }
 
-        return $this->renderJson((string)$errors);
+        return $this->renderErrors($errors);
     }
 
     /**
