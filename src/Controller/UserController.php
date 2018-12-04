@@ -59,6 +59,9 @@ class UserController extends ApiController {
      * @SWG\Response(
      *     response=200,
      *     description="Returns an user",
+     *     @SWG\Schema(
+     *         ref=@Model(type=User::class, groups={"details"})
+     *     )
      * )
      * @SWG\Tag(name="Users")
      * @Security(name="Token")
@@ -74,6 +77,9 @@ class UserController extends ApiController {
      * @SWG\Response(
      *     response=200,
      *     description="Create an user",
+     *     @SWG\Schema(
+     *         ref=@Model(type=User::class, groups={"details"})
+     *     )
      * )
      * @SWG\Parameter(
      *     name="email",
@@ -88,13 +94,6 @@ class UserController extends ApiController {
      *     type="string",
      *     required=true,
      *     description="User plain password (not hashed)"
-     * )
-     * @SWG\Parameter(
-     *     name="roles",
-     *     in="query",
-     *     type="array",
-     *     @SWG\Items(type="string"),
-     *     description="User roles"
      * )
      * @SWG\Tag(name="Users")
      * @Security(name="Token")
@@ -123,6 +122,9 @@ class UserController extends ApiController {
      * @SWG\Response(
      *     response=200,
      *     description="Update an user",
+     *     @SWG\Schema(
+     *         ref=@Model(type=User::class, groups={"details"})
+     *     )
      * )
      * @SWG\Parameter(
      *     name="email",
@@ -137,13 +139,6 @@ class UserController extends ApiController {
      *     type="string",
      *     required=true,
      *     description="User plain password (not hashed)"
-     * )
-     * @SWG\Parameter(
-     *     name="roles",
-     *     in="query",
-     *     type="array",
-     *     @SWG\Items(type="string"),
-     *     description="User roles"
      * )
      * @SWG\Tag(name="Users")
      * @Security(name="Token")
@@ -167,6 +162,10 @@ class UserController extends ApiController {
      * @SWG\Response(
      *     response=200,
      *     description="Delete an user",
+     *     @SWG\Schema(
+     *         type="object",
+     *         @SWG\Property(property="success", type="boolean"),
+     *     )
      * )
      * @SWG\Tag(name="Users")
      * @Security(name="Token")

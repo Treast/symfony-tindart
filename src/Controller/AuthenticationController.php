@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Component\HttpFoundation\Request;
 use Swagger\Annotations as SWG;
+use App\Entity\User;
 
 class AuthenticationController extends ApiController {
 
@@ -28,6 +30,9 @@ class AuthenticationController extends ApiController {
      * @SWG\Response(
      *     response=200,
      *     description="Authenticate an user",
+     *     @SWG\Schema(
+     *         ref=@Model(type=User::class, groups={"details"})
+     *     )
      * )
      * @SWG\Parameter(
      *     name="email",
