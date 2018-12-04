@@ -2,6 +2,9 @@
     "clue/stream-filter": {
         "version": "v1.4.0"
     },
+    "cweagans/composer-patches": {
+        "version": "1.6.5"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -247,6 +250,9 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "ralouphie/getallheaders": {
+        "version": "2.0.5"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",

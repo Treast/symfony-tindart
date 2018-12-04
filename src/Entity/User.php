@@ -18,11 +18,12 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="string")
+     * @JMS\Groups({"details"})
      */
     private $uuid;
 
     /**
-     * @JMS\Groups({"default"})
+     * @JMS\Groups({"default", "details"})
      * @Assert\NotBlank()
      * @Assert\Email()
      * @ORM\Column(type="string", length=180, unique=true)

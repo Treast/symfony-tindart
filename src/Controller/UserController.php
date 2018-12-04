@@ -41,7 +41,7 @@ class UserController extends ApiController {
      *     description="Returns all users",
      *     @SWG\Schema(
      *         type="array",
-     *         @SWG\Items()
+     *         @SWG\Items(ref=@Model(type=User::class, groups={"details"}))
      *     )
      * )
      * @SWG\Tag(name="Users")
