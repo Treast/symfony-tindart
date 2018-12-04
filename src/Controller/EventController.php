@@ -62,6 +62,10 @@ class EventController extends ApiController {
      * @Security(name="Token")
      */
     public function getEventAction(Place $place, Event $event) {
+        if($event->getPlace() !== $place) {
+            return $this->renderJson(['error' => 'Not found'], Response::HTTP_NOT_FOUND);
+        }
+
         return $this->renderJson($event);
     }
 
@@ -157,6 +161,10 @@ class EventController extends ApiController {
      * @Security(name="Token")
      */
     public function putEventAction(Place $place, Event $bodyEvent, Event $event) {
+        if($event->getPlace() !== $place) {
+            return $this->renderJson(['error' => 'Not found'], Response::HTTP_NOT_FOUND);
+        }
+
         $errors = $this->validator->validate($bodyEvent);
         if($errors->count() === 0) {
             $event->setPlace($place);
@@ -189,6 +197,10 @@ class EventController extends ApiController {
      * @Security(name="Token")
      */
     public function deleteEventsAction(Place $place, Event $event) {
+        if($event->getPlace() !== $place) {
+            return $this->renderJson(['error' => 'Not found'], Response::HTTP_NOT_FOUND);
+        }
+
         $this->entityManager->remove($event);
         $this->entityManager->flush();
 
