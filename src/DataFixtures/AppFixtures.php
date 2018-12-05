@@ -39,15 +39,18 @@ class AppFixtures extends Fixture
         $placesFixtures = [
             [
                 'name' => 'Bonlieu Scène Nationale Annecy',
-                'address' => '1 Rue Jean Jaurès, 74000 Annecy'
+                'address' => '1 Rue Jean Jaurès, 74000 Annecy',
+                'image' => 'http://bibliotheques.agglo-annecy.fr/images/stories/Annecy_/Bonlieu/equipement/Bonlieu-Annecy.jpg'
             ],
             [
                 'name' => 'Les Escholiers',
-                'address' => '26 Rue Sommeiller, 74000 Annecy'
+                'address' => '26 Rue Sommeiller, 74000 Annecy',
+                'image' => 'https://i.imgur.com/aBj7ysw.jpg'
             ],
             [
                 'name' => 'Château d\'Annecy',
-                'address' => '1 Place du Château, 74000 Annecy'
+                'address' => '1 Place du Château, 74000 Annecy',
+                'image' => 'https://i.imgur.com/RJWVUn4.jpg'
             ],
         ];
 
@@ -82,6 +85,7 @@ class AppFixtures extends Fixture
             $place = new Place();
             $place->setName($placeFixture['name']);
             $place->setAddress($placeFixture['address']);
+            $place->setImage($placeFixture['image']);
 
             $coordinates = $this->geocoder->geocode($placeFixture['address']);
 

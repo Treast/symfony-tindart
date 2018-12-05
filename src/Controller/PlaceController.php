@@ -94,6 +94,12 @@ class PlaceController extends ApiController {
      *     required=true,
      *     description="Place address"
      * )
+     * @SWG\Parameter(
+     *     name="image",
+     *     in="query",
+     *     type="string",
+     *     description="Place image"
+     * )
      * @SWG\Tag(name="Places")
      * @Security(name="Token")
      */
@@ -103,6 +109,7 @@ class PlaceController extends ApiController {
             $place = new Place();
             $place->setName($bodyPlace->getName());
             $place->setAddress($bodyPlace->getAddress());
+            $place->setImage($bodyPlace->getImage());
 
             $coordinates = $this->geocoder->geocode($place->getAddress());
 
@@ -145,6 +152,12 @@ class PlaceController extends ApiController {
      *     required=true,
      *     description="Place address"
      * )
+     * @SWG\Parameter(
+     *     name="image",
+     *     in="query",
+     *     type="string",
+     *     description="Place image"
+     * )
      * @SWG\Tag(name="Places")
      * @Security(name="Token")
      */
@@ -153,6 +166,7 @@ class PlaceController extends ApiController {
         if($errors->count() === 0) {
             $place->setName($bodyPlace->getName());
             $place->setAddress($bodyPlace->getAddress());
+            $place->setImage($bodyPlace->getImage());
 
             $coordinates = $this->geocoder->geocode($place->getAddress());
 

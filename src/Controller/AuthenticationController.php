@@ -31,7 +31,7 @@ class AuthenticationController extends ApiController {
      *     response=200,
      *     description="Authenticate an user",
      *     @SWG\Schema(
-     *         ref=@Model(type=User::class, groups={"details"})
+     *         ref=@Model(type=User::class, groups={"default"})
      *     )
      * )
      * @SWG\Parameter(
