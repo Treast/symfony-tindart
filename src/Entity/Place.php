@@ -56,6 +56,7 @@ class Place
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @JMS\Groups({"default"})
      */
     private $image;
 

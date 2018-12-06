@@ -9,6 +9,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Component\HttpFoundation\Request;
 use Swagger\Annotations as SWG;
 use App\Entity\User;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticationController extends ApiController {
 
@@ -57,6 +58,6 @@ class AuthenticationController extends ApiController {
             return $this->renderJson($user);
         }
 
-        return $this->renderJson(['success' => false]);
+        return $this->renderJson(['success' => false], Response::HTTP_BAD_REQUEST);
     }
 }
