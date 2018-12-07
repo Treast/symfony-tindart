@@ -53,7 +53,7 @@ Configurer enfin le client en changeant l'adresse du serveur dans le fichier `an
 static BASE_URL = 'http://127.0.0.1:8000';
 ```
 
-Vous pouvez enfin lancer le client:
+Vous pouvez enfin lancer le client et y accéder [http://localhost:4200](http://localhost:4200) (de préférence en vue adaptative ou sur smartphone):
 ```
 ng serve
 ```
