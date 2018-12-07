@@ -41,7 +41,7 @@ Vous pouvez lancer le serveur PHP:
 php bin/console server:run
 ```
 
-La documentation de l'API est disponible ici : [http://127.0.0.1:800/api/doc](http://127.0.0.1:800/api/doc)
+La documentation de l'API est disponible ici : [http://127.0.0.1:8000/api/doc](http://127.0.0.1:8000/api/doc)
 
 
 ### Installation du client
