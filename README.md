@@ -8,7 +8,7 @@ Tindart est une application web créée en Symfony 4.2 (serveur) et Angular 7 (c
 - [Installation](#installation)
 	- [Installation du serveur](#installation-du-serveur)
 	- [Installation du client](#installation-du-client)
-- [Routes implémentées dans le client](routes-implémentées-dans-le-client)
+- [Routes implémentées dans le client](#routes-implémentées-dans-le-client)
 	- [Authentication](#authentication)
 	- [Places](#places)
 	- [Events](#events)
