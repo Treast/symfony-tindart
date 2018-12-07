@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\Place;
+use App\Entity\User;
 use App\Repository\EventRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
@@ -179,6 +180,33 @@ class EventController extends ApiController {
         }
 
         return $this->renderErrors($errors);
+    }
+
+    /**
+     * @param Place $place
+     * @param Event $event
+     * @param User $user
+     * @return Response
+     * @SWG\Response(
+     *     response=200,
+     *     description="Add an user to an event",
+     *     @SWG\Schema(
+     *         ref=@Model(type=Event::class, groups={"default"})
+     *     )
+     * )
+     * @SWG\Tag(name="Events")
+     * @Security(name="Token")
+     */
+    public function postEventUserAction(Place $place, Event $event, User $user) {
+        if($event->getPlace() !== $place || !$user || $user != $this->getUser()) {
+            return $this->renderJson(['error' => 'Not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $event->addParticipant($user);
+
+        $this->entityManager->persist($event);
+        $this->entityManager->flush();
+        return $this->renderJson($event);
     }
 
     /**
