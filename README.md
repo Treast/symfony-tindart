@@ -1,6 +1,6 @@
 # Tindart
 
-**Important: ce repo ne contient que le côté serveur. Le repo du client se trouve ici : [https://github.com/Treast/symfony-tindart.git](https://github.com/Treast/symfony-tindart.git)**
+**Important: ce repo ne contient que le côté serveur. Le repo du client se trouve ici : [https://github.com/Treast/angular-tindar](https://github.com/Treast/angular-tindar)**
 
 Tindart est une application web créée en Symfony 4.2 (serveur) et Angular 7 (client). Elle permet de lister les lieux culturels autour de soi, de voir les événements s'y passant et de s'y inscrire.
 
