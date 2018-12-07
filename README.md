@@ -41,7 +41,7 @@ Vous pouvez lancer le serveur PHP:
 php bin/console server:run
 ```
 
-#### Credientials
+#### Credentials
 **Email:** `test@test.fr`
 **Password:** `test`
 
