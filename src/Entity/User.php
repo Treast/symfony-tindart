@@ -51,7 +51,7 @@ class User implements UserInterface
     private $token;
 
     /**
-     * @JMS\MaxDepth(1)
+     * @JMS\MaxDepth(2)
      * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="participants")
      * @JMS\Groups({"default"})
      */

@@ -42,7 +42,7 @@ class Event
     private $description;
 
     /**
-     * @JMS\MaxDepth(1)
+     * @JMS\MaxDepth(2)
      * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="events")
      * @ORM\JoinColumn(name="place_uuid", referencedColumnName="uuid", nullable=false)
      * @JMS\Groups({"default"})
