@@ -80,6 +80,7 @@ ng serve
 |`POST`| `/places/{place}/events` |Création d'un événement
 |`POST`| `/places/{place}/events/{event}/users` |Création d'une participation d'un utilisateur à un événement
 |`DELETE`| `/places/{place}/events/{event}/users` |Suppression d'une participation d'un utilisateur à un événement
+|`POST`| `/places/searches` |Recherche des lieux culturels autour de la position actuelle de l'utilisateur (500 mètres)
 ### Users
 |Méthode|URI|Description|
 |--|--|--|
