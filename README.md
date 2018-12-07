@@ -41,11 +41,10 @@ Vous pouvez lancer le serveur PHP:
 php bin/console server:run
 ```
 
-**Credientials**
-```
-**Email:** test@test.fr
-**Password:** test
-```
+#### Credientials
+**Email:** `test@test.fr`
+**Password:** `test`
+
 
 La documentation de l'API est disponible ici : [http://127.0.0.1:8000/api/doc](http://127.0.0.1:8000/api/doc)
 
