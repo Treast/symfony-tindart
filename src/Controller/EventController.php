@@ -185,7 +185,6 @@ class EventController extends ApiController {
     /**
      * @param Place $place
      * @param Event $event
-     * @param User $user
      * @return Response
      * @SWG\Response(
      *     response=200,
@@ -197,12 +196,38 @@ class EventController extends ApiController {
      * @SWG\Tag(name="Events")
      * @Security(name="Token")
      */
-    public function postEventUserAction(Place $place, Event $event) {
+    public function postEventUsersAction(Place $place, Event $event) {
         if($event->getPlace() !== $place ) {
             return $this->renderJson(['error' => 'Not found'], Response::HTTP_NOT_FOUND);
         }
 
         $event->addParticipant($this->getUser());
+
+        $this->entityManager->persist($event);
+        $this->entityManager->flush();
+        return $this->renderJson($event);
+    }
+
+    /**
+     * @param Place $place
+     * @param Event $event
+     * @return Response
+     * @SWG\Response(
+     *     response=200,
+     *     description="Remove an user from an event",
+     *     @SWG\Schema(
+     *         ref=@Model(type=Event::class, groups={"default"})
+     *     )
+     * )
+     * @SWG\Tag(name="Events")
+     * @Security(name="Token")
+     */
+    public function deleteEventUsersAction(Place $place, Event $event) {
+        if($event->getPlace() !== $place ) {
+            return $this->renderJson(['error' => 'Not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $event->removeParticipant($this->getUser());
 
         $this->entityManager->persist($event);
         $this->entityManager->flush();
