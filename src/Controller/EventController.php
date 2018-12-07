@@ -197,12 +197,12 @@ class EventController extends ApiController {
      * @SWG\Tag(name="Events")
      * @Security(name="Token")
      */
-    public function postEventUserAction(Place $place, Event $event, User $user) {
-        if($event->getPlace() !== $place || !$user || $user != $this->getUser()) {
+    public function postEventUserAction(Place $place, Event $event) {
+        if($event->getPlace() !== $place ) {
             return $this->renderJson(['error' => 'Not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $event->addParticipant($user);
+        $event->addParticipant($this->getUser());
 
         $this->entityManager->persist($event);
         $this->entityManager->flush();

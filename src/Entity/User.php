@@ -20,7 +20,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="string")
-     * @JMS\Groups({"details"})
+     * @JMS\Groups({"default", "details"})
      */
     private $uuid;
 
